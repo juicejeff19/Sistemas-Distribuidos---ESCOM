@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Práctica Servicios Web</title>
+  <style>
+    body { font-family: Arial; max-width:800px; margin:20px auto; }
+    input,button,select { padding:6px; margin:4px; }
+    .card { border:1px solid #ccc; padding:10px; border-radius:8px; margin:10px 0; }
+  </style>
+</head>
+<body>
+<h1>Servicios Web con JavaScript</h1>
+
+<section class="card">
+  <h3>Buscar libros</h3>
+  <input id="search" placeholder="Buscar">
+  <button id="btnSearch">Buscar</button>
+  <label>Límite:</label>
+  <select id="limit"><option>3</option><option selected>5</option><option>10</option></select>
+</section>
+
+<section class="card">
+  <h3>Agregar libro</h3>
+  <input id="title" placeholder="Título">
+  <input id="author" placeholder="Autor">
+  <input id="year" placeholder="Año">
+  <input id="apiKey" placeholder="API Key" value="secret123">
+  <button id="btnAdd">Agregar</button>
+</section>
+
+<section class="card">
+  <h3>Resultados</h3>
+  <div id="list"></div>
+  <div id="pager"></div>
+</section>
+
+<script>
+const API = '/api/books';
+let state = { page: 1, limit: 5, search: '' };
+
+async function apiFetch(path, opts={}) {
+  const headers = opts.headers || {};
+  headers['Content-Type'] = 'application/json';
+  const key = document.getElementById('apiKey').value.trim();
+  if (key) headers['x-api-key'] = key;
+  const res = await fetch(API + path, { ...opts, headers });
+  if (!res.ok) throw await res.json();
+  return res.json();
+}
+
+async function load() {
+  const q = `?page=${state.page}&limit=${state.limit}&search=${state.search}`;
+  const data = await apiFetch(q);
+  renderList(data);
+}
+
+function renderList({data, page, pages, total}) {
+  const list = document.getElementById('list');
+  list.innerHTML = data.map(b => `<div><b>${b.title}</b> — ${b.author} (${b.year})
+    <button onclick="view(${b.id})">Ver</button>
+    <button onclick="edit(${b.id})">Editar</button>
+    <button onclick="del(${b.id})">Borrar</button></div>`).join('');
+  document.getElementById('pager').innerHTML =
+    `Página ${page} de ${pages} — Total: ${total}`;
+}
+
+async function add() {
+  const title=document.getElementById('title').value.trim();
+  if(!title)return alert('Título obligatorio');
+  await apiFetch('',{
+    method:'POST',
+    body:JSON.stringify({
+      title,
+      author:document.getElementById('author').value,
+      year:+document.getElementById('year').value||null
+    })
+  });
+  load();
+}
+
+async function view(id){
+  const b=await apiFetch('/'+id);
+  alert(JSON.stringify(b,null,2));
+}
+
+async function edit(id){
+  const title=prompt('Nuevo título:');
+  await apiFetch('/'+id,{method:'PUT',body:JSON.stringify({title})});
+  load();
+}
+
+async function del(id){
+  if(!confirm('¿Borrar?'))return;
+  await apiFetch('/'+id,{method:'DELETE'});
+  load();
+}
+
+document.getElementById('btnSearch').onclick=()=>{
+  state.search=document.getElementById('search').value;
+  state.limit=document.getElementById('limit').value;
+  load();
+};
+document.getElementById('btnAdd').onclick=add;
+
+load();
+</script>
+</body>
+</html>
