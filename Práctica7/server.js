@@ -1,19 +1,30 @@
 const express = require('express');
-const app = express();
 const path = require('path');
-const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+const app = express();
+const PORT = 3000;
+
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-let notas = [];
+let tasks = [];
 
-app.get('/api/notas', (req, res) => res.json(notas));
-
-app.post('/api/notas', (req, res) => {
-    const nota = { id: Date.now(), texto: req.body.texto };
-    notas.push(nota);
-    res.json(nota);
+app.get('/tasks', (req, res) => {
+    res.json(tasks);
 });
 
-app.listen(PORT, () => console.log(`Servidor divino en http://localhost:${PORT}`));
+app.post('/tasks', (req, res) => {
+    const task = req.body;
+    task.id = Date.now();
+    tasks.push(task);
+    res.json(task);
+});
+
+app.delete('/tasks/:id', (req, res) => {
+    tasks = tasks.filter(t => t.id != req.params.id);
+    res.json({ success: true });
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});

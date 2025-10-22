@@ -1,9 +1,20 @@
 {
-  "name": "PWA Notas",
-  "short_name": "Notas",
+  "name": "Task Manager PWA",
+  "short_name": "TasksPWA",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f0f0f0",
-  "theme_color": "#2e8b57",
-  "icons": []
+  "background_color": "#4CAF50",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

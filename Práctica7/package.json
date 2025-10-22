@@ -1,12 +1,12 @@
 {
-  "name": "pwa-notas",
+  "name": "savebite",
   "version": "1.0.0",
-  "description": "Ejemplo intermedio de Progressive Web App con Node.js",
+  "description": "PWA avanzada para reducir desperdicio de alimentos",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "scripts": { "start": "node server.js" },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "web-push": "^3.6.2",
+    "body-parser": "^1.20.2"
   }
 }
