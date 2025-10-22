@@ -1,0 +1,9 @@
+{
+  "name": "PWA Notas",
+  "short_name": "Notas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f0f0",
+  "theme_color": "#2e8b57",
+  "icons": []
+}

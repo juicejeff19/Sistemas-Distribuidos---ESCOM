@@ -1,0 +1,12 @@
+{
+  "name": "pwa-notas",
+  "version": "1.0.0",
+  "description": "Ejemplo intermedio de Progressive Web App con Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
