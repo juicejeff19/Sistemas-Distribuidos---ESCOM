@@ -2,9 +2,12 @@
   "name": "Practica8",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "archiver.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
