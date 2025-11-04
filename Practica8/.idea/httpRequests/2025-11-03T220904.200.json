@@ -1,0 +1,11 @@
+{
+  "profile_for_ip": "8.8.8.8",
+  "location": {
+    "city": "Ashburn",
+    "country": "United States"
+  },
+  "weather": {
+    "temperature": "10°C",
+    "windspeed": "11 km/h"
+  }
+}

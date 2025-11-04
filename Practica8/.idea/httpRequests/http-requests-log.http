@@ -1,0 +1,18 @@
+GET http://localhost:3000/profile/201.144.119.146
+User-Agent: IntelliJ HTTP Client/WebStorm 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-11-03T221122.200.json
+
+###
+
+GET http://localhost:3000/profile/8.8.8.8
+User-Agent: IntelliJ HTTP Client/WebStorm 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-11-03T220904.200.json
+
+###
+
